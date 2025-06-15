@@ -9,10 +9,11 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException, NoSuchElementException
 import time
 
+
 dotenv_path = find_dotenv()
 load_dotenv(dotenv_path)
 
-JUPITER_USERNAME = os.getenv("USERNAME")
+JUPITER_USERNAME = os.getenv("JUPITER_USERNAME")
 JUPITER_PASSWORD = os.getenv("PASSWORD")
 print("PASS: "+JUPITER_PASSWORD)
 LESSON_PLAN_FILE = "lesson_plans/"+"Q3_ALL_TOGETHER.csv"
@@ -114,7 +115,7 @@ def fill_lesson_form_for_row(browser, lesson_details):
 
     wait.until(EC.element_to_be_clickable((By.XPATH, "//div[contains(text(), 'New Lesson Plan')]"))).click()
 
-   #Now find an element with the class "menurow" that contains the text "14; 17/09/2024"
+    #Now find an element with the class "menurow" that contains the text "14; 17/09/2024"
 
     #If you find an element that meets these conditions, check if there is an element above it with the content "Not in any course". If there isn't, click it.
 
@@ -139,7 +140,7 @@ def fill_lesson_form_for_row(browser, lesson_details):
     
     
     browser.find_element(By.ID, "text_assessment").send_keys(lesson_details['assessment'])
-    browser.find_element(By.ID, "text_procedures").send_keys(lesson_details['procedures'])
+    browser.find_element(By.ID, "text_materials").send_keys(lesson_details['materials'])
     
     browser.find_element(By.XPATH, "//div[contains(text(), 'Done')]").click()
 
