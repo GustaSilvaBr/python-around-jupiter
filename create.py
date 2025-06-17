@@ -1,4 +1,5 @@
 import os
+import getpass
 from dotenv import find_dotenv, load_dotenv
 import pandas as pd
 from selenium import webdriver
@@ -13,9 +14,9 @@ import time
 dotenv_path = find_dotenv()
 load_dotenv(dotenv_path)
 
-JUPITER_USERNAME = os.getenv("JUPITER_USERNAME")
-JUPITER_PASSWORD = os.getenv("PASSWORD")
-print("PASS: "+JUPITER_PASSWORD)
+# JUPITER_USERNAME = os.getenv("JUPITER_USERNAME")
+# JUPITER_PASSWORD = os.getenv("PASSWORD")
+#print("PASS: "+JUPITER_PASSWORD)
 LESSON_PLAN_FILE = "lesson_plans/"+"current.csv"
 
 
@@ -211,13 +212,15 @@ def create_all_lesson_entries(browser, lesson_dataframe):
 
 
 def main():
-    """Main function to orchestrate the automation."""
+    print("Welcome to calibot!")
+    JUPITER_USERNAME = input("Username:")
+    JUPITER_PASSWORD = getpass.getpass(prompt="Password:")
     browser = None
     try:
         browser = setup_browser()
         if not browser:
             return
-
+        
         login_to_jupiter(browser, JUPITER_USERNAME, JUPITER_PASSWORD)
         
         all_lesson_data = load_lesson_plan_data(LESSON_PLAN_FILE)
