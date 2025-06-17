@@ -31,15 +31,13 @@ def setup_browser():
 def login_to_jupiter(browser, username, password):
     print("Executing login sequence...")
     browser.get("https://login.jupitered.com/login/")
-    wait = WebDriverWait(browser, 10)
+    wait = WebDriverWait(browser, 15)
 
     staff_tab = wait.until(EC.element_to_be_clickable((By.ID, "tab_staff")))
     staff_tab.click()
     browser.find_element(By.ID, "text_username1").send_keys(username)
     browser.find_element(By.ID, "text_password1").send_keys(password)
-    browser.find_element(By.ID, "timeoutin1_label").click()
-    lock_for_60min = wait.until(EC.visibility_of_element_located((By.XPATH, "//div[contains(text(), '60 minutes')]")))
-    lock_for_60min.click()
+    
     browser.find_element(By.ID, "loginbtn").click()
     
     print("\n" + "="*50)
@@ -126,7 +124,7 @@ def deletion(browser, course):
                     print("It broke here")
                     break
 
-                if 'menurow' in item_class and '2025' in item_text.lower():
+                if 'menurow' in item_class and '3rd Quarter;' in item_text or '4th Quarter;' in item_text:
                     item.click()
                     delete_button = wait.until(EC.element_to_be_clickable((By.XPATH, "//div[text()='Delete']")))
                     delete_button.click()
@@ -168,7 +166,7 @@ def main():
         
         navigate_to_lesson_area(browser)
         
-        deletion(browser, "CP_9")
+        deletion(browser, "INOT_10C")
 
         print("\nAutomation complete for all courses!")
 
